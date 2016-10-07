@@ -232,20 +232,39 @@ var input = [
 ];
 
 function longHappyChain (input){
-    //.biz emails
-    
-    //Cities --> city object
-    
-    //print names of people with .biz emails + unique cities
     input.filter(function(ele){
-        return (ele.email.search(".biz") != -1);    //.biz emails
+        return (ele.email.search(".biz") !== -1);    //.biz emails
     }).reduce(function(prev, ele){
         return prev.concat(ele.address.city);       //only cities array
     },[]).filter(function(ele, idx, arr) {
-        return arr.indexOf(ele) == idx;
+        return arr.indexOf(ele) === idx;
     }).forEach(function(ele){
         console.log(ele);
     })
 }
 
-longHappyChain(input);
+function recursiveHappyChain(arr, unique, len) {
+    //Exit case
+    if(len >= 0) {
+        //Base case
+        if (!unique.length){
+            if(arr[len].email.search(".biz") !== -1){
+                unique.push(arr[len].address.city)
+            }
+        }
+        //Recursive case
+        else {
+            if (unique.indexOf(arr[len].address.city) === -1){
+                if(arr[len].email.search(".biz") !== -1){
+                    unique.push(arr[len].address.city);
+                }
+            }
+        }
+        recursiveHappyChain(arr, unique, len - 1);
+    }
+    return unique;
+}
+console.log(recursiveHappyChain(input, [], input.length - 1));
+
+
+//longHappyChain(input);
