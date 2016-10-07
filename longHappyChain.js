@@ -1,4 +1,4 @@
-var contacts = [
+var addressbook = [
   {
     "id": 1,
     "name": "Leanne Graham",
@@ -230,3 +230,23 @@ var contacts = [
     }
   }
 ]
+
+
+
+
+function longHappyChain(contact){
+    var chain1 = contact.filter(function(test1){
+        return test1.email.indexOf(".biz") >0;
+    }).map(function(test2){
+        return test2.address.city;
+    }).reduce(function(prev, curr){
+        if(prev.indexOf(curr)<0){
+            prev.push(curr)
+        }
+        return prev;
+    }, []).forEach(function(printThis){
+        console.log(printThis)
+    })
+    return contact;
+}
+longHappyChain(addressbook)
