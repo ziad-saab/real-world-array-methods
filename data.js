@@ -1536,10 +1536,25 @@ function sunnyThisWeek(weatherApi){
     })
 }
 
+function hottestToday(weatherApi){
+    return weatherApi.reduce(function(prevMax, currTemp){
+        return prevMax < currTemp.temperature ? currTemp.temperature : prevMax;
+    },0)
+}
+
+function weatherThisWeek(weatherApi){
+    var stats = {};
+    weatherApi.forEach(function(date){
+        if(!(date.icon in stats)){
+            stats[date.icon] = 0;
+        }
+            stats[date.icon] +=1
+        return;
+    })
+    return stats;
+}
 
 
-// console.log(whenIsItRaining(hourlyForecast))
-console.log(sunnyThisWeek(dailyForecast))
-
+console.log(weatherThisWeek(dailyForecast))
 
 
