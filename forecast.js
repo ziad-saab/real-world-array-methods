@@ -1512,11 +1512,30 @@ function rainCheck(obj) {
     
 };
 
-console.log(rainCheck(weatherData));
+//console.log(rainCheck(weatherData));
 
 
+//Using a chain of two array methods, figure out if it’s going to rain in the next 8 hours. 
+// To do this, you’ll have to start with the hourly data and:
+
+// Eliminate any item where the time is further than 8 hours from now.
+// Do the same thing as part 1.
+
+function next8RainCheck(obj) {
+    var eightHours = obj.hourly.data.slice(0, 8);
 
 
+    return eightHours.reduce(function(acc, hours) {
+        return hours.summary === "rain" 
+   
+    }, {})
+        
+}
+  
+    
+
+
+console.log(next8RainCheck(weatherData));
 
 
 
