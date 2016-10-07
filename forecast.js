@@ -1532,11 +1532,23 @@ function next8RainCheck(obj) {
         
 }
   
+//console.log(next8RainCheck(weatherData));
+
+// Using the appropriate array method, start with the hourly data and return an array 
+// of only the temperatures. Your returned array should have the same number of elements 
+// as the original array.
+
+// Example output: [72.9, 70.5, ...]
+
+function onlyTemps(array) {
+return array.hourly.data.map(function(item){
+    return item.temperature;
     
+})
+}
 
 
-console.log(next8RainCheck(weatherData));
-
+console.log(onlyTemps(weatherData));
 
 
 
