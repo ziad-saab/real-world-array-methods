@@ -1540,17 +1540,41 @@ function next8RainCheck(obj) {
 
 // Example output: [72.9, 70.5, ...]
 
-function onlyTemps(array) {
-return array.hourly.data.map(function(item){
+function onlyTemps(obj) {
+return obj.hourly.data.map(function(item){
     return item.temperature;
     
 })
 }
 
 
-console.log(onlyTemps(weatherData));
+//console.log(onlyTemps(weatherData));
+
+// Using a chain of two array methods, start with the hourly data and return an 
+// array of Date objects saying when it will rain. To do this, you’ll have to:
+
+// Eliminate any item where it is not raining.
+
+// Extract the time from the remaining items and create a Date object
+
+function isRaining(obj) {
+    return obj.hourly.data.filter(function(item){
+        return item.precipType ? true : false;
+    });
+}
+
+function rainTime(arr) {
+    return arr.map(function(item) {
+        var dates = {};
+        dates.time =  new Date(item.time * 1000);
+        return dates;
+    })
+}
 
 
+
+//console.log(isRaining(weatherData));
+//console.log(rainTime(isRaining(weatherData)));
 
 
 
