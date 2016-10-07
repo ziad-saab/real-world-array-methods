@@ -1488,22 +1488,24 @@ var forecast = {
     "timezone": "America/Montreal"
 }
 var hourlyForecast = forecast.hourly.data;
+var dailyForecast = forecast.daily.data;
 //Checks the (fake)Api to see whether(haha pun) it will rain in the next
 //86400 seconds. Compares the hourly time with the current time.
 function rainingToday(weatherApi){
     //console.log(forecast.currently.time) ==> 1467991683
     return weatherApi.some(function(hour){
-        return hour.time-forecast.currently.time < 86400 ? hour.summary === "Rain" : false;
+        return hour.time-forecast.currently.time < 86400 ? hour.icon === "rain" : false;
     })
 }
 //Same as above
 
 function rainingSoon(weatherApi){
     return weatherApi.some(function(hour){
-        return hour.time-forecast.currently.time < 28800 ? hour.summary === "Rain" : false;
+        return hour.time-forecast.currently.time < 28800 ? hour.icon === "rain" : false;
     })
 }
 //console.log(hourlyForecast)
+//Takes the weatherApi and returns an array of all the temperatures.
 function getTemp(weatherApi){
     return weatherApi.map(function(temp){
         return temp.temperature
@@ -1511,5 +1513,33 @@ function getTemp(weatherApi){
 }
 // console.log(rainingToday(hourlyForecast));
 // console.log(rainingSoon(hourlyForecast));
-console.log(getTemp(hourlyForecast))
+// console.log(getTemp(hourlyForecast))
+
+function whenIsItRaining(weatherApi){
+    var itsRaining = weatherApi.filter(function(forecast){
+        return forecast.icon === "rain"
+    })
+    var dateObject = [];
+    itsRaining.forEach(function(forecast){
+        var test = new Date(forecast.time *1000)
+        console.log(test)
+        dateObject.push(test)
+        return;
+        })
+    return dateObject;
+        
+}
+
+function sunnyThisWeek(weatherApi){
+    return weatherApi.every(function(day){
+        return day.summary === "sun";
+    })
+}
+
+
+
+// console.log(whenIsItRaining(hourlyForecast))
+console.log(sunnyThisWeek(dailyForecast))
+
+
 
