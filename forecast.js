@@ -1577,6 +1577,22 @@ function rainTime(arr) {
 //console.log(rainTime(isRaining(weatherData)));
 
 
+// Using the appropriate array method, start with the daily data and figure out 
+// whether it will be sunny every day of the week. Use the summary and check if it 
+// contains the word "sun" using your preferred method.
+
+function isSunny(obj) {
+    return obj.daily.data.every(function(item){
+        return item.summary.match('sun');
+        
+    })
+    
+}
+
+console.log(isSunny(weatherData));
+
+
+
 
 
 
