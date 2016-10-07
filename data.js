@@ -1503,8 +1503,13 @@ function rainingSoon(weatherApi){
         return hour.time-forecast.currently.time < 28800 ? hour.summary === "Rain" : false;
     })
 }
-
-
-console.log(rainingToday(hourlyForecast));
-console.log(rainingSoon(hourlyForecast))
+//console.log(hourlyForecast)
+function getTemp(weatherApi){
+    return weatherApi.map(function(temp){
+        return temp.temperature
+    })
+}
+// console.log(rainingToday(hourlyForecast));
+// console.log(rainingSoon(hourlyForecast));
+console.log(getTemp(hourlyForecast))
 
