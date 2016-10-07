@@ -1,7 +1,7 @@
 # Real-world array methods exercises
 
 ## Data
-All the exercises in this workshop are based on this real-world weather data from [forecast.io](http://forecast.io).
+All the exercises in this workshop are based on this real-world weather data from [forecast.io](https://darksky.net/dev/docs/forecast).
 
 ```json
 {
