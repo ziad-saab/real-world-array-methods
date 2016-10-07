@@ -1516,11 +1516,10 @@ function getTemp(weatherApi){
 // console.log(getTemp(hourlyForecast))
 
 function whenIsItRaining(weatherApi){
-    var itsRaining = weatherApi.filter(function(forecast){
-        return forecast.icon === "rain"
-    })
     var dateObject = [];
-    itsRaining.forEach(function(forecast){
+    weatherApi.filter(function(forecast){
+        return forecast.icon === "rain"
+    }).forEach(function(forecast){
         var test = new Date(forecast.time *1000)
         console.log(test)
         dateObject.push(test)
@@ -1529,7 +1528,7 @@ function whenIsItRaining(weatherApi){
     return dateObject;
         
 }
-
+console.log(whenIsItRaining(hourlyForecast))
 function sunnyThisWeek(weatherApi){
     return weatherApi.every(function(day){
         return day.summary === "sun";
