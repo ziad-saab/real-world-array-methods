@@ -1540,3 +1540,52 @@ console.log(rainCheck2(weather));
 }
 
 console.log(getTemp(weather));
+
+
+// ## When is it going to rain?
+// Using a chain of two array methods, start with the hourly data and return an
+// array of `Date` objects saying when it will rain. To do this, you'll have to:
+
+// 1. Eliminate any item where it is not raining.
+// 2. Extract the time from the remaining items and create a `Date` object
+
+function whenIsRain(obj){
+
+    return obj.hourly.data.filter(function(item){
+      return item.precipType ? true : false;
+    }).map(function(item){
+     return {date:item.time};
+    })
+
+}
+
+console.log(whenIsRain(weather));
+
+
+// ## Is it going to be sunny all week?
+// Using the appropriate array method, start with the **daily** data and figure out
+// whether it will be sunny **every day** of the week. Use the `summary` and check 
+// if it contains the word `"sun"` using your preferred method.
+
+function ouSun(obj){
+    return obj.daily.data.some(function(item){
+        return item.summary === 'sun';
+    })
+}
+
+console.log(ouSun(weather));
+
+// ## How hot will it be today?
+// Using the appropriate array method, start with the hourly data and figure out
+// what will be **the hottest** temperature today. As a hint, notice that you will
+// need to visit each item in turn, but also **keep track of a separate value**.
+
+function hottestDay(obj){
+    return obj.hourly.data.reduce(function(acc, temp){
+        if(acc < temp.temperature){
+            return temp.temperature.find
+        }
+    }, Infinity)
+}
+
+console.log(hottestDay(weather));
