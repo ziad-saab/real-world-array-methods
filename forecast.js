@@ -1589,15 +1589,47 @@ function isSunny(obj) {
     
 }
 
-console.log(isSunny(weatherData));
+//console.log(isSunny(weatherData));
+
+
+// Using the appropriate array method, start with the hourly data and figure out 
+// what will be the hottest temperature today. As a hint, notice that you will need 
+// to visit each item in turn, but also keep track of a separate value.
+
+var todaysTemps = onlyTemps(weatherData);
+
+function hottestTemp(arr) {
+    arr.sort(function(a,b){
+        return b - a;
+    })
+    return arr[0];
+}
+
+//console.log(hottestTemp(todaysTemps));
 
 
 
 
+// Using the appropriate array method, start with the daily data and find out how many 
+// times each icon – representing the weather condition for that day – appears.
+// An example output could be:
+
+// {
+//   "rain": 3,
+//   "partly-cloudy": 2,
+//   "sunny": 2
+// }
 
 
+function iconTracker(obj) {
+    return obj.daily.data.reduce(function(acc, obj){
+         acc[obj.icon] ? acc[obj.icon] += 1: acc[obj.icon] = 1;
+         return acc
+    }, {})
+    
+};
 
-
+console.log(iconTracker(weatherData));
 
 
 
