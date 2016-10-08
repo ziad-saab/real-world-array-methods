@@ -1554,9 +1554,9 @@ function whenIsRain(obj){
     return obj.hourly.data.filter(function(item){
       return item.precipType ? true : false;
     }).map(function(item){
-     return {date:item.time};
+     return {date: new Date(item.time * 1000).toDateString()};
     })
-
+   
 }
 
 console.log(whenIsRain(weather));
@@ -1581,11 +1581,37 @@ console.log(ouSun(weather));
 // need to visit each item in turn, but also **keep track of a separate value**.
 
 function hottestDay(obj){
-    return obj.hourly.data.reduce(function(acc, temp){
-        if(acc < temp.temperature){
-            return temp.temperature.find
-        }
-    }, Infinity)
+    var tempArr = obj.hourly.data.map(function(item){
+        return item.temperature;
+    }).sort(function(a,b){return b - a;})
+    return tempArr[0];
 }
 
 console.log(hottestDay(weather));
+
+// ## Stats on this week's weather
+// Using the appropriate array method, start with the **daily** data and find out
+// how many times each icon -- representing the weather condition for that day -- appears.
+
+// An example output could be:
+
+// ```json
+// {
+//   "rain": 3,
+//   "partly-cloudy": 2,
+//   "sunny": 2
+// }
+// ```
+
+function iconVal(obj){
+    return obj.daily.data.reduce(function(retObj, item){
+        if(!(retObj[item.icon])) {
+            retObj[item.icon] = 1;
+        }
+        else{
+            retObj[item.icon] += 1;
+        }
+        return retObj;
+    },{})
+}
+console.log(iconVal(weather));
