@@ -1,4 +1,4 @@
-{
+var weather = {
     "currently": {
         "apparentTemperature": 69.12,
         "cloudCover": 0.55,
@@ -1486,4 +1486,26 @@
     },
     "offset": -4,
     "timezone": "America/Montreal"
+
 }
+
+function rainToday(arr) {
+    //console.log(arr);
+    var test = arr.reduce(function(obj, data) {
+        //console.log(data.precipType);
+        if (!('precipType' in data)) {
+            //console.log('test');
+            return false;
+        }
+        //console.log(data.precipType);
+        // else if (data.precipType.toLowerCase().includes('rain')) {
+        //      return true;
+        // }
+        else {return data.precipType.toLowerCase().includes('rain');}
+        
+    }, {});
+    return test;
+}
+
+console.log(rainToday(weather['hourly']['data']));
+
