@@ -1501,7 +1501,7 @@ function rainToday(arr) {
 
 }
 
-// console.log(rainToday(weather['hourly']['data']));
+//console.log(rainToday(weather['hourly']['data']));
 
 function eightHours(arr) {
 
@@ -1515,22 +1515,31 @@ function eightHours(arr) {
 
         var date = new Date(obj.time * 1000);
         var hour = date.getHours(obj.time);
-        //console.log(date);
+        //console.log(hour);
 
-        var mm = currentDate - date
-        var hh = Math.floor(mm / 1000 / 60 / 60);
+        // var mm = currentDate - date
+        // var hh = Math.floor(mm / 1000 / 60 / 60);
 
-        //console.log(date > currentDate);
-        //console.log(hh);
+        // console.log(date > currentDate);
+        // console.log(mm);
 
-        if (hh >= 0 && hh <= 8) {
-            console.log(hh);
+        if (currentHour <= hour && hour <= (currentHour+8)) {
+            return obj;
         }
+        //else {}
     })
+}
+
+//console.log(eightHours(weather['hourly']['data']));
+
+function rainInEightHours(arr) {
+
+    rainToday(eightHours(arr));
 
 }
 
-//eightHours(weather['hourly']['data']);
+console.log(rainInEightHours(weather['hourly']['data']));
+
 
 function onlyTemperature(arr) {
 
@@ -1543,4 +1552,4 @@ function onlyTemperature(arr) {
 
 }
 
-console.log(onlyTemperature(weather['hourly']['data']));
+//console.log(onlyTemperature(weather['hourly']['data']));
