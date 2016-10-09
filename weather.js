@@ -1490,22 +1490,57 @@ var weather = {
 }
 
 function rainToday(arr) {
-    //console.log(arr);
-    var test = arr.reduce(function(obj, data) {
-        //console.log(data.precipType);
+
+    return arr.reduce(function(obj, data) {
         if (!('precipType' in data)) {
-            //console.log('test');
             return false;
         }
-        //console.log(data.precipType);
-        // else if (data.precipType.toLowerCase().includes('rain')) {
-        //      return true;
-        // }
         else {return data.precipType.toLowerCase().includes('rain');}
         
     }, {});
-    return test;
+
 }
 
-console.log(rainToday(weather['hourly']['data']));
+// console.log(rainToday(weather['hourly']['data']));
 
+function eightHours(arr) {
+
+    var currentDate = new Date();
+    var currentHour = currentDate.getHours();
+
+    //console.log(currentHour);
+
+    return arr.filter(function(obj) {
+        //console.log(obj.time);
+
+        var date = new Date(obj.time * 1000);
+        var hour = date.getHours(obj.time);
+        //console.log(date);
+
+        var mm = currentDate - date
+        var hh = Math.floor(mm / 1000 / 60 / 60);
+
+        //console.log(date > currentDate);
+        //console.log(hh);
+
+        if (hh >= 0 && hh <= 8) {
+            console.log(hh);
+        }
+    })
+
+}
+
+//eightHours(weather['hourly']['data']);
+
+function onlyTemperature(arr) {
+
+    var temperatures = arr.map(function(obj) {
+        //console.log(obj.temperature);
+        //if ('temperature' in obj)
+        return obj.temperature;
+    })
+    return temperatures;
+
+}
+
+console.log(onlyTemperature(weather['hourly']['data']));
