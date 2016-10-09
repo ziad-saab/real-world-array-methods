@@ -37,7 +37,7 @@ var weather = {
                 "precipProbability": 0.03,
                 "precipType": "rain",
                 "pressure": 1010.99,
-                "summary": "Light rain overnight.",
+                "summary": "sun",
                 "sunriseTime": 1467969321,
                 "sunsetTime": 1468025108,
                 "temperatureMax": 81.44,
@@ -1158,7 +1158,6 @@ var weather = {
                 "ozone": 350.9,
                 "precipIntensity": 0.004,
                 "precipProbability": 0.14,
-                "precipType": "rain",
                 "pressure": 1012.59,
                 "summary": "Overcast",
                 "temperature": 66.38,
@@ -1491,17 +1490,20 @@ var weather = {
 
 function rainToday(arr) {
 
+    // console.log(arr);
+
     return arr.reduce(function(obj, data) {
+        if(obj){return true;}
         if (!('precipType' in data)) {
             return false;
         }
-        else {return data.precipType.toLowerCase().includes('rain');}
-        
+        else if (data.precipType.toLowerCase().includes('rain')) {
+            return true;
+        }
+
     }, {});
 
 }
-
-//console.log(rainToday(weather['hourly']['data']));
 
 function eightHours(arr) {
 
@@ -1510,7 +1512,7 @@ function eightHours(arr) {
 
     //console.log(currentHour);
 
-    return arr.filter(function(obj) {
+    var blah = arr.filter(function(obj) {
         //console.log(obj.time);
 
         var date = new Date(obj.time * 1000);
@@ -1528,18 +1530,8 @@ function eightHours(arr) {
         }
         //else {}
     })
+    return rainToday(blah);
 }
-
-//console.log(eightHours(weather['hourly']['data']));
-
-function rainInEightHours(arr) {
-
-    rainToday(eightHours(arr));
-
-}
-
-console.log(rainInEightHours(weather['hourly']['data']));
-
 
 function onlyTemperature(arr) {
 
@@ -1553,3 +1545,56 @@ function onlyTemperature(arr) {
 }
 
 //console.log(onlyTemperature(weather['hourly']['data']));
+
+function notRaining(arr) {
+
+    var rainyDays = arr.filter(function(obj){
+        return obj.precipType;
+    });
+    return rainyDays.map(function(obj) {
+            return new Date(obj.time * 1000);
+        
+    }, {});
+}
+
+function sunnyWeek(arr){
+    return arr.reduce(function(obj, data) {
+        // console.log(obj);
+        if (!obj) {return false;}
+        if (data.summary.toLowerCase().includes('sun')) {
+            return true;
+        }
+        else {return false;}
+    }, {});
+}
+
+function highestTemp(arr){
+    var highest = -Infinity;
+    return arr.reduce(function(obj,data) {
+        if (data.temperature > highest) {
+            highest = data.temperature;
+        }
+        return highest
+    }, {})
+
+}
+
+function iconCount(arr){
+    return arr.reduce(function(obj,data) {
+        if (typeof obj[data.icon] === 'undefined') {
+            obj[data.icon] = 1;
+        }
+        else {obj[data.icon] += 1;}
+        return obj;
+    }, {})
+}
+
+// console.log(notRaining(weather['hourly']['data']));
+// console.log(rainToday(weather['hourly']['data']));
+// rainToday(weather['hourly']['data'])
+//var out = eightHours(weather['hourly']['data']);
+//console.log(out);
+// console.log(notRaining(weather['daily']['data']));
+//console.log(sunnyWeek(weather['daily']['data']));
+//console.log(highestTemp(weather['hourly']['data']));
+console.log(iconCount(weather['daily']['data']));
